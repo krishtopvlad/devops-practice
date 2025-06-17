@@ -24,11 +24,6 @@ app.add_middleware(
 )
 
 
-@app.get("/return_code")
-def get_code_200():
-    return 200
-
-
 @app.post("/add_data")
 async def import_passwords_csv(
     file: UploadFile,
