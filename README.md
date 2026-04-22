@@ -71,11 +71,3 @@ docker compose up --build
 * Оркестрация через docker-compose
 * Reverse proxy через Nginx
 * CI через GitHub Actions
-
----
-
-## 📈 Дальнейшие улучшения
-
-* Добавление healthcheck
-* Настройка логирования
-* Деплой на сервер
