@@ -14,7 +14,6 @@
 * Docker Compose
 * Nginx (reverse proxy)
 * GitHub Actions (CI)
-* Linux
 
 ---
 
