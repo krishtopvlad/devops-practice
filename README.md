@@ -1,126 +1,81 @@
-# Сервис на основе 100000 хешированнных паролей
+# DevOps Practice Project
 
-[![Python](https://img.shields.io/badge/-Python-464646?style=flat-square&logo=Python)](https://www.python.org/)
-[![FastAPI](https://img.shields.io/badge/-FastAPI-464646?style=flat-square&logo=fastapi)](https://fastapi.tiangolo.com/)
-[![PostgreSQL](https://img.shields.io/badge/-PostgreSQL-464646?style=flat-square&logo=PostgreSQL)](https://www.postgresql.org/)
-[![Alembic](https://img.shields.io/badge/-Alembic-464646?style=flat-square&logo=Alembic)](https://alembic.sqlalchemy.org/en/latest/)
-[![SQLAlchemy](https://img.shields.io/badge/-SQLAlchemy-464646?style=flat-square&logo=SQLAlchemy)](https://www.sqlalchemy.org/)
-[![Docker](https://img.shields.io/badge/-Docker-464646?style=flat-square&logo=docker)](https://www.docker.com/)
-[![Uvicorn](https://img.shields.io/badge/-Uvicorn-464646?style=flat-square&logo=uvicorn)](https://www.uvicorn.org/)
-[![Gunicorn](https://img.shields.io/badge/-Gunicorn-464646?style=flat-square&logo=gunicorn)](https://gunicorn.org/)
-[![JavaScript](https://img.shields.io/badge/-JavaScript-464646?style=flat-square&logo=javascript)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
-[![React](https://img.shields.io/badge/-React-464646?style=flat-square&logo=react)](https://react.dev/)
-[![Vite](https://img.shields.io/badge/-Vite-464646?style=flat-square&logo=vite)](https://vite.dev/)
-[![npm](https://img.shields.io/badge/-Npm-464646?style=flat-square&logo=Npm)](https://www.npmjs.com/)
-[![Node.js](https://img.shields.io/badge/-Node.js-464646?style=flat-square&logo=Node.js)](https://nodejs.org/en)
-[![Ruff](https://img.shields.io/badge/-Ruff-464646?style=flat-square&logo=Ruff)](https://docs.astral.sh/ruff/)
+## 📌 О проекте
 
-# Описание 
+Учебный проект, в котором реализовано развертывание backend и frontend приложения с использованием Docker, Nginx и GitHub Actions.
 
-Сервис позволяет на основе 100000 самых распространенных паролей мира по введенному хешу определить базовый пароль. Используется SHA-256. Бэкенд на Python (FastAPI) использует асинхронную обработку и мгновенно проверяет хеши через предзагруженный набор данных. Фронтенд на React (Vite) предлагает форму ввода и отображение результатов. Развертывание — локально (Python/Node.js) или в Docker-контейнерах. Для форматирования кода использовался линтер и форматер Ruff.
+Проект демонстрирует базовые практики DevOps: контейнеризацию, настройку reverse proxy и CI.
 
-![Превью](photo1.jpg)
-![Превью](photo2.jpg)
+---
 
-#### Локально документация доступна по адресу: <http://localhost:8000/docs/>, а также <http://localhost:5173/>.
+## ⚙️ Используемые технологии
 
-#### Локальный запуск проекта
+* Docker
+* Docker Compose
+* Nginx (reverse proxy)
+* GitHub Actions (CI)
+* Linux
 
-- Предварительно необходимо установить Docker для вашей системы.
+---
 
-- Склонировать репозиторий:
-  
-```
-   git clone <ссылка на репозиторий>
-```
-
-Cоздать и активировать виртуальное окружение:
-
-Команды для установки виртуального окружения на Mac или Linux:
+## 🏗 Архитектура
 
 ```
-   python3 -m venv env
-   source env\bin\activate
+Пользователь → Nginx → Frontend / Backend → Database
 ```
 
-Команды для Windows:
+* Nginx принимает входящие запросы
+* `/api` маршрутизируется в backend
+* остальной трафик идёт во frontend
 
-```
-   python -m venv venv
-   source venv\Scripts\activate
-```
+---
 
-- Создать файл .env и .env-non-dev по образцу:
-
-
-- Файл .env:
+## 🚀 Запуск проекта
 
 ```bash
-  DB_HOST=*****
-  DB_PORT=*****
-  DB_USER=*****
-  DB_PASS=*****
-  DB_NAME=*****
+docker compose up --build
 ```
 
-- Файл .env-non-dev:
+После запуска:
 
-```bash
-  DB_HOST=*****
-  DB_PORT=*****
-  DB_USER=*****
-  DB_PASS=*****
-  DB_NAME=*****
+* Frontend: http://localhost
+* Backend: http://localhost/api
 
-  POSTGRES_DB=*****
-  POSTGRES_USER=*****
-  POSTGRES_PASSWORD=*****
-```
+---
 
-- Установить зависимости из файла requirements.txt:
+## 🔄 CI (GitHub Actions)
 
-```bash
-   cd ..
-   pip install -r requirements.txt
-```
+Настроен pipeline, который при каждом push:
 
-- Для создания миграций выполнить команду:
+* собирает Docker-образ backend
+* собирает Docker-образ frontend
 
-```bash
-   alembic init migrations
-```
+---
 
-- Инициализировать БД:
-
-``` bash
-    alembic revision --autogenerate -m "comment"
-```
-
-- Применить миграцию:
-
-``` bash
-    alembic upgrade head
-```
-
-- Запустить проект:
-
-``` bash
-    uvicorn main:app --reload
-```
-
-#### Пример обычного пароля и его хешированной версии 
+## 📂 Структура проекта
 
 ```
-Обычный - password
-Хешированный - 5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8
+.
+├── backend/
+├── frontend/
+├── nginx/
+├── docker-compose.yml
+└── .github/workflows/ci.yml
 ```
 
-#### Запуск docker-compose
+---
 
-```
-  docker compose up --build
-```
+## 💡 Что реализовано
 
-#### Автор
+* Контейнеризация приложения (Docker)
+* Оркестрация через docker-compose
+* Reverse proxy через Nginx
+* CI через GitHub Actions
 
-Куприянов Тимофей - [https://github.com/tims1de](https://github.com/tims1de)
+---
+
+## 📈 Дальнейшие улучшения
+
+* Добавление healthcheck
+* Настройка логирования
+* Деплой на сервер
